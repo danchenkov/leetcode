@@ -1,4 +1,4 @@
-package l727
+package main
 
 func removeDuplicates(nums []int) (k int) {
     if len(nums) <= 1 { return len(nums) }

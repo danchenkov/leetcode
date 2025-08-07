@@ -1,8 +1,9 @@
-package l727
+package main
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestRemoveDuplicates(t *testing.T) {
@@ -19,17 +20,13 @@ func TestRemoveDuplicates(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		nums := append([]int(nil), tt.input...) // Copy to avoid mutating original
+		nums := make([]int, len(tt.input))
+		copy(nums, tt.input)
+
 		k := removeDuplicates(nums)
 		result := nums[:k]
-		if result == nil {
-			result = []int{}
-		}
-		if tt.expected == nil {
-			tt.expected = []int{}
-		}
 
-		if !reflect.DeepEqual(result, tt.expected) {
+		if !cmp.Equal(result, tt.expected) {
 			t.Errorf("removeDuplicates(%v) = %v, want %v", tt.input, result, tt.expected)
 		}
 	}
